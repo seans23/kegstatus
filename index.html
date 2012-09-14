@@ -39,8 +39,11 @@ html {
 <p><b>This demo MUST be run in <a href="https://www.stackmob.com/platform/help/tutorials/html5_js_sdk#a-step_2_of_3:_running_this_file_locally" target="_blank">StackMob's Local HTML Runner</a> or be hosted on StackMob's HTML5 hosting solution.  Otherwise the AJAX calls will not work.  This demo will NOT work otherwise.</b></p>
  
 <input id="username" type="text" value=""/>
+<input id="password"" type="text" value=""/>
 <input id="create" type="submit" onclick="create();" value="Create User"/>
 <input id="read" type="submit" onclick="read();" value="Read User"/>
+<input id="login" type="submit" onclick="login();" value="Login User"/>
+<br/>
  
 <script type="text/javascript">
   function create() {
@@ -81,6 +84,26 @@ html {
       });
     }
  
+  }
+
+  function login() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    if (username != '') {
+      var user = new StackMob.User({ username: username, password: password});
+      user.login(false, {
+      success: function(fullUserModel) {
+        console.debug('User is logged in!');
+        //The full user object is returned
+        console.debug(fullUserModel.toJSON());
+      },
+      error: function(model, error) {
+      console.debug(error);
+      }
+    });
+    
+    }
+
   }
 </script>
  
