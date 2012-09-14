@@ -44,6 +44,7 @@ html {
     
     
     #results {display:none;}
+    #resultMsg {color:red;padding-top:20px}
     
 </style>
 <body>
@@ -56,6 +57,10 @@ html {
 <input id="read" type="submit" onclick="read();" value="Read User"/>
 <input id="login" type="submit" onclick="login();" value="Login User"/>
 <br/>
+    
+    
+<div id="resultMsg">
+</div>
     
 <table id="results">
 <tr>
@@ -79,11 +84,11 @@ html {
       //Call StackMob via Ajax to create a user
       user.create({
         success: function(model) {
-          console.debug("We've written the user to StackMob!");
-          console.debug(model);
+          displayMsg("We've written the user to StackMob!");
+          append(model);
         },
         error: function(model, response) {
-          console.debug(response);
+          displayMsg(response.error);
         }
       });
     }}
@@ -96,11 +101,11 @@ html {
       var fetchuser = new StackMob.User({ 'username': username });
       fetchuser.fetch({
         success: function(model) {
-          console.debug("We fetched the user from StackMob!");
+          displayMsg("We fetched the user from StackMob!");
           append(model.toJSON());
         },
         error: function(model, response) {
-          console.debug(response);
+          displayMsg(response);
         }
       });
     }
@@ -114,12 +119,12 @@ html {
       var user = new StackMob.User({ username: username, password: password});
       user.login(false, {
       success: function(fullUserModel) {
-        console.debug('User is logged in!');
+        displayMsg('User is logged in!');
         //The full user object is returned
         append(fullUserModel);
       },
       error: function(model, error) {
-      console.debug(error);
+        displayMsg(model.error_description);
       }
     });
     
@@ -135,6 +140,12 @@ html {
             $('#results > tbody:last').append('<tr><td>' + userModel.username + '</td><td>' + userModel.age + '</td><td>' + d + '</td></tr>');
         }
     }
+    
+    function displayMsg(resultVal) {
+    $('#resultMsg').html(resultVal);
+    
+    }
+    
 </script>
  
 </body>
