@@ -33,6 +33,18 @@ html {
 	outline-width: medium;
 	height: 100%;
 }
+    
+    table{
+        padding-top:40px;
+    }
+    td, th { 
+        min-width:100px;
+        text-align:center;
+    }
+    
+    
+    #results {display:none;}
+    
 </style>
 <body>
 
@@ -44,6 +56,15 @@ html {
 <input id="read" type="submit" onclick="read();" value="Read User"/>
 <input id="login" type="submit" onclick="login();" value="Login User"/>
 <br/>
+    
+<table id="results">
+<tr>
+    <th>Username</th>
+    <th>Age</th>
+    <th>Date Created</th>
+</tr>
+</div>
+    
  
 <script type="text/javascript">
   function create() {
@@ -76,7 +97,7 @@ html {
       fetchuser.fetch({
         success: function(model) {
           console.debug("We fetched the user from StackMob!");
-          console.debug(model.toJSON());
+          append(model.toJSON());
         },
         error: function(model, response) {
           console.debug(response);
@@ -95,7 +116,7 @@ html {
       success: function(fullUserModel) {
         console.debug('User is logged in!');
         //The full user object is returned
-        console.debug(fullUserModel);
+        append(fullUserModel);
       },
       error: function(model, error) {
       console.debug(error);
@@ -105,6 +126,15 @@ html {
     }
 
   }
+
+    function append(userModel) {
+        if (userModel != '')  {   
+            var d = new Date(0);
+            d.setUTCSeconds(userModel.createddate / 1000);
+            $('#results').show();
+            $('#results > tbody:last').append('<tr><td>' + userModel.username + '</td><td>' + userModel.age + '</td><td>' + d + '</td></tr>');
+        }
+    }
 </script>
  
 </body>
