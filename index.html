@@ -75,9 +75,12 @@ html {
   function create() {
     var username = document.getElementById('username').value;
     if (username != '') {
+      var password = document.getElementById('password').value;
+      if (password == '') password = 'afakepassword';
+    
       var user = new StackMob.User({
         'username': username,
-        'password': 'afakepassword',
+        'password': password,
         'age': 30
       });
  
@@ -85,7 +88,7 @@ html {
       user.create({
         success: function(model) {
           displayMsg("We've written the user to StackMob!");
-          append(model);
+          append(model.toJSON());
         },
         error: function(model, response) {
           displayMsg(response.error);
