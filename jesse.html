@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>HI JESSE</title>
+
+<script language="javascript">
+
+var COLOR = 999999
+var woot = 0
+function stoploop() {
+document.bgColor = '#fff';
+clearTimeout(loopID);
+}
+function loopBackground() {
+if (COLOR > 0) {
+document.bgColor = '#' + COLOR
+COLOR -= 111111
+loopID = setTimeout("loopBackground()",1)
+} else {
+document.bgColor = '#000000'
+woot += 10
+COLOR = 999999
+COLOR -= woot
+loopID = setTimeout("loopBackground()",1)
+   }
+}
+</script>
+
+</head>
+<body onload="loopBackground()">
+<h1 style="font-size:72px; text-align:center;color:red">HI JESSE!!!!!!<br/> HOW IS YOUR HANGOVER?</h1>
+</body>
+</html>
+
