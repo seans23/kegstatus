@@ -86,11 +86,11 @@ html {
     var username = document.getElementById('username').value;
     if (username != '') {
       var password = document.getElementById('password').value;
-      //if (password == '') password = 'afakepassword';
+      if (password == '') password = 'afakepassword';
     
       var user = new StackMob.User({
         'username': username,
-        'password': password,
+      //  'password': password,
         'age': 30
       });
  
